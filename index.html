@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="index.css" />
+		<link rel="stylesheet" href="switch-btn.css" />
+		<title>Input Js</title>
+	</head>
+	<body>
+		<div class="content">
+			<div class="switch-type-container">
+				<label class="switch" for="switch-type">
+					<input
+						type="checkbox"
+						class="switch-type"
+						data-name="switch-type"
+						id="switch-type"
+						role="button"
+						name="switch-type"
+						title="Switch Button"
+					/>
+					<span class="slider"></span>
+				</label>
+				<div class="changed-one m-y-1">
+					Input Type : <span class="input-type" data-name="input-type"></span>
+				</div>
+				<label class="switch" for="switch-system">
+					<input
+						type="checkbox"
+						class="switch-system"
+						data-name="switch-system"
+						id="switch-system"
+						role="button"
+						name="switch-system"
+						title="Switch Button"
+					/>
+					<span class="slider"></span>
+				</label>
+				<div class="changed-one m-y-1">
+					Input System :
+					<span class="input-type" data-name="input-system"></span>
+				</div>
+			</div>
+			<div class="container" role="group">
+				<div class="input-wrapper m-y-3">
+					<input
+						type="text"
+						name="input"
+						data-name="input"
+						id="input"
+						class="my-input m-y-1"
+						placeholder="You can change the input type to: text or number"
+					/>
+					<button
+						id="result-button"
+						name="result-button"
+						class="result-button btn m-y-1"
+						role="button"
+						data-name="result-button"
+					>
+						Result
+					</button>
+				</div>
+				<div class="output-wrapper m-y-3">
+					<span id="output" name="output" data-name="output"></span>
+				</div>
+			</div>
+		</div>
+		<script src="index.js"></script>
+	</body>
+</html>
