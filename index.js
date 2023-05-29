@@ -6,77 +6,60 @@ const switchSystem = document.querySelector("[data-name='switch-system']");
 const spanInputType = document.querySelector("[data-name='input-type']");
 const spanInputSystem = document.querySelector("[data-name='input-system']");
 
-let consoleCheck = [
-	inputHtml,
-	outputHtml,
-	resultButton,
-	switchButton,
-	switchSystem,
-	spanInputType,
-	spanInputSystem,
-];
-console.log(consoleCheck);
-
-function defaultSet() {
-	spanInputType.innerHTML = "<strong>Text</strong>";
-	spanInputSystem.innerHTML = "<strong>Button System</strong>";
+function defaultSet(input, text) {
+	if (input == "type") {
+		spanInputType.innerHTML = `<strong>${text}</strong>`;
+	} else if (input == "system") {
+		spanInputSystem.innerHTML = `<strong>${text}</strong>`;
+	} else {
+		spanInputType.innerHTML = `<strong>Text</strong>`;
+		spanInputSystem.innerHTML = `<strong>Button System</strong>`;
+		resultButton.addEventListener("click", buttonOutputInput)
+	}
 }
 
 function liveOutputInput() {
-	if (resultButton.classList.contains("d-none")) {
-		return;
-	} else {
-		resultButton.classList.add("d-none");
-	}
-
-	inputHtml.addEventListener("input", () => {
-		let inputValues = inputHtml.value;
-		outputHtml.innerHTML = inputValues;
-	});
+	outputHtml.innerHTML = inputHtml.value;
 }
 
 function buttonOutputInput() {
-	if (resultButton.classList.contains("d-none")) {
-		resultButton.classList.remove("d-none");
-	}
-
-	resultButton.addEventListener("click", () => {
-		outputHtml.innerHTML = inputHtml.value;
-	});
+	outputHtml.innerHTML = inputHtml.value;
 }
 
 function switchTypeInput() {
-	switchButton.addEventListener("input", () => {
-		if (switchButton.checked) {
-			inputHtml.type = "number";
-			inputHtml.value = "";
-			outputHtml.innerHTML = "";
-			spanInputType.innerHTML = "<strong>Number</strong>";
-		} else {
-			inputHtml.type = "text";
-			inputHtml.value = "";
-			outputHtml.innerHTML = "";
-			spanInputType.innerHTML = "<strong>Text</strong>";
-		}
-	});
+	inputHtml.value = "";
+	outputHtml.innerHTML = "";
+	if (switchButton.checked) {
+		inputHtml.type = "number";
+		defaultSet("type", "Number")
+	} else {
+		inputHtml.type = "text";
+		defaultSet("type", "Text")
+	}
 }
 
 function switchSystemInput() {
-	switchSystem.addEventListener("input", () => {
-		if (switchSystem.checked) {
-			inputHtml.value = "";
-			outputHtml.innerHTML = "";
-			spanInputSystem.innerHTML = "<strong>Real Time System</strong>";
-			liveOutputInput();
-		} else {
-			inputHtml.value = "";
-			outputHtml.innerHTML = "";
-			spanInputSystem.innerHTML = "<strong>Button System</strong>";
-			buttonOutputInput();
-		}
-	});
+	inputHtml.value = "";
+	outputHtml.innerHTML = "";
+	if (switchSystem.checked) {
+		defaultSet('system', "Real Time System")
+		resultButton.classList.add('d-none');
+		inputHtml.addEventListener("input", liveOutputInput)
+		resultButton.removeEventListener("click", buttonOutputInput)
+	} else {
+		defaultSet('system', "Button System")
+		resultButton.classList.remove('d-none');
+		inputHtml.removeEventListener("input", liveOutputInput)
+		resultButton.addEventListener("click", buttonOutputInput)
+	}
 }
 
 defaultSet();
 switchTypeInput();
 switchSystemInput();
+
+switchButton.addEventListener("change", switchTypeInput);
+switchButton.addEventListener("change", switchSystemInput);
+
+switchSystem.addEventListener("change", switchTypeInput);
+switchSystem.addEventListener("change", switchSystemInput);
